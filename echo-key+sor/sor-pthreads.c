@@ -52,7 +52,7 @@ sor_first_row_odd(int first_row, int end)
 			for (k = 2; k < N - 1; k += 2)
 				update_val(j, k);
 		}
-
+Pthread_barrier_wait(&barrier);
 		/* Update black blocks. */
 		for (j = first_row; j <= end; j++) {
 
@@ -65,6 +65,8 @@ sor_first_row_odd(int first_row, int end)
 			for (k = 1; k < N - 1; k += 2)
 				update_val(j, k);
 		}
+
+		Pthread_barrier_wait(&barrier);
 	}
 }
 
@@ -90,7 +92,7 @@ sor_first_row_even(int first_row, int end)
 			for (k = 1; k < N - 1; k += 2)
 				update_val(j, k);
 		}
-	
+	Pthread_barrier_wait(&barrier);
 		/* Update black blocks. */
 		for (j = first_row; j <= end; j++) {
 			
@@ -103,7 +105,8 @@ sor_first_row_even(int first_row, int end)
 			for (k = 2; k < N - 1; k += 2)
 				update_val(j, k);
 
-		}				
+		}		
+				Pthread_barrier_wait(&barrier);		
 	}
 }
 
@@ -203,7 +206,7 @@ run_thread(void *arg)
 			last_row = N - 2;
 		}
 	}
-
+	Pthread_barrier_wait(&barrier);
 	/* Start relaxation process. */
 	if (first_row & 1)
 		sor_first_row_odd(first_row, last_row);
