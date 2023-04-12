@@ -1,0 +1,11 @@
+COURSE = /clear/www/htdocs/comp321
+CC = clang
+CFLAGS = -Wall -Wextra -Werror -I${COURSE}/include -g
+
+all: adder
+
+adder: adder.c
+	$(CC) $(CFLAGS) -o adder adder.c
+
+clean:
+	rm -f adder *~
